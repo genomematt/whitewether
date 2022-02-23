@@ -1,6 +1,4 @@
-# Draft
-# Known Issue: conflict between the tensorboard files
-# with same name and different hash created by macos and metal
+# Basic environment for tensorflow on Apple M1
 
 let
   mach-nix = import (builtins.fetchGit {
@@ -29,9 +27,14 @@ let
         tensorflow-metal
       '';
 
-    ignoreCollisions = true;
+    _.tensorboard.postInstall = ''
+        rm $out/bin/tensorboard
+      '';
+
+    _.tensorflow-macos.postInstall = ''
+        rm $out/bin/tensorboard
+      '';
     
-    #providers.shapely = "sdist,nixpkgs";
   };
 in
 mach-nix.nixpkgs.mkShell {
