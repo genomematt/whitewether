@@ -22,7 +22,9 @@ let
         jupyterlab
         numpy<1.22
         pandas
+        openpyxl
         matplotlib
+        pillow
         altair
         ipywidgets
       '';
